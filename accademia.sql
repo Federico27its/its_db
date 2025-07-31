@@ -1,4 +1,5 @@
-create database Accademia
+create database Accademia;
+
 
 create type Strutturato as
     enum ('Ricercatore', 'Professore Associato', 'Professore Ordinario');
@@ -33,8 +34,13 @@ create table Persona (
 );
 
 insert into Persona(id, nome, cognome, posizione, stipendio) values
-(1, 'Alice', 'Arceri', 'Ricercatore', 24000),
-(2, 'Bruno', 'Bianchi', 'Professore Ordinario', 2);
+(1, 'Alice', 'Alici', 'Ricercatore', 24000),
+(2, 'Bruno', 'Bianchi', 'Professore Ordinario', 2),
+(3, 'Carlo', 'Carli', 'Ricercatore', 999),
+(4, 'Valerio', 'Valeri', 'Professore Associato', 100000000),
+(5, 'Bob', 'Bianchi', 'Ricercatore', 1),
+(6, 'Vov', 'Verdi', 'Professore Ordinario', 518);
+
 
 
 create table Progetto(
@@ -50,7 +56,9 @@ create table Progetto(
 
 insert into Progetto(id, nome, inizio, fine, budget) values
 (1, 'Progettone', '12-01-1994', '10-05-2012', 3),
-(2, 'Progettino', '12-02-1995', '10-02-1996', 500000000);
+(2, 'Progettino', '12-02-1995', '10-02-1996', 50000000),
+(3, 'Progetto', '12-01-1994', '10-05-2112', 333);
+
 
 create table WP(
     progetto PosInteger not null,
@@ -82,8 +90,9 @@ create table AttivitaProgetto(
 );
 
 insert into AttivitaProgetto(id, persona, progetto, wp, giorno, tipo, oreDurata) values
-(1, 1, 1, 1, '12-01-1995', 'Dimostrazione', 5),
-(2, 2, 2, 1, '12-01-1995', 'Altro', 6);
+(1, 1, 1, 1, '06-18-1989', 'Dimostrazione', 5),
+(2, 2, 2, 1, '12-01-1995', 'Altro', 6),
+(3, 2, 2, 1, '12-02-1995', 'Altro', 6);
 
 create table AttivitaNonProgettuale(
     id PosInteger not null,
@@ -97,7 +106,9 @@ create table AttivitaNonProgettuale(
 
 insert into AttivitaNonProgettuale(id, persona, tipo, giorno, oreDurata) values
 (1, 1, 'Didattica', '12-05-2023', '8'),
-(2, 2, 'Missione', '11-20-2000', '3');
+(2, 2, 'Missione', '11-20-2000', '3'),
+(3, 2, 'Didattica', '12-05-2023', '8'),
+(4, 1, 'Didattica', '12-06-2023', '8');
 
 create table Assenza(
     id PosInteger not null,
@@ -111,4 +122,32 @@ create table Assenza(
 
 insert into Assenza(id, persona, tipo, giorno) values
 (1, 1, 'Maternita', '10-23-2012'),
-(2, 2, 'Malattia', '01-01-2001');
+(2, 2, 'Malattia', '01-01-2001'),
+(3, 2, 'Maternita', '03-26-2001');
+
+select distinct cognome from Persona;
+
+select nome, cognome from Persona 
+where Persona.posizione = 'Ricercatore';
+
+select * from Persona
+where Persona.posizione = 'Professore Associato' and cognome like 'V%';
+
+select * from Persona
+where (Persona.posizione = 'Professore Associato' or Persona.posizione = 'Professore Ordinario') and cognome like 'V%';
+
+select * from Progetto
+where Progetto.fine<current_date;
+
+select nome from Progetto
+order by inizio;
+
+select nome from WP
+order by nome;
+
+select distinct tipo from Assenza;
+
+select distinct tipo from AttivitaProgetto;
+
+select distinct giorno from AttivitaNonProgettuale
+where AttivitaNonProgettuale.tipo = 'Didattica';
