@@ -150,4 +150,8 @@ select distinct tipo from Assenza;
 select distinct tipo from AttivitaProgetto;
 
 select distinct giorno from AttivitaNonProgettuale
+<<<<<<< HEAD
 where AttivitaNonProgettuale.tipo = 'Didattica';
+=======
+where AttivitaNonProgettuale.tipo = 'Didattica';
+>>>>>>> 8997f8bd9ef808c9c2d503fb8de6d184d355bbaf

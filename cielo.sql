@@ -86,4 +86,8 @@ select * from Compagnia;
 select * from Aeroporto;
 select * from LuogoAeroporto;
 select * from Volo;
+<<<<<<< HEAD
 select * from ArrPart;
+=======
+select * from ArrPart;
+>>>>>>> 8997f8bd9ef808c9c2d503fb8de6d184d355bbaf
