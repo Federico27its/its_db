@@ -15,7 +15,7 @@ create domain CodiceFiscale as char(16) check (value ~ '[A-Z]{6}[0-9]{2}[A-Z][0-
 
 create domain Telefono as varchar(15);
 
-create domain Email as Stringa check (value ~ '^[A-Z0-9._%+-]++@(?:[A-Z0-9]++\.)++[A-Z]{2,}+$)';
+create domain Email as Stringa check (value ~ '^[A-Z0-9._%+-]++@(?:[A-Z0-9]++\.)++[A-Z]{2,}+$)');
 
 create domain PartitaIva as char(11) check (value ~ '\d{11}');
 
