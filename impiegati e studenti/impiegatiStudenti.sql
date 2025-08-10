@@ -1,10 +1,12 @@
+CREATE DATABASE ImpiegatiStudenti;
+
 CREATE TYPE TipoPersona AS ENUM ('Persona', 'Studente', 'Impiegato');
 
 CREATE TYPE Genere AS ENUM ('Uomo', 'Donna');
 
 CREATE TYPE Ruolo AS ENUM ('Segretario', 'Direttore', 'Progettista');
 
-CREATE DOMAIN CodiceFiscale as Stringa check (value ~ '^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$');
+CREATE DOMAIN CodiceFiscale as varchar check (value ~ '^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$');
 
 CREATE DOMAIN IntGEZ as integer check (value >= 0);
 
@@ -22,9 +24,9 @@ CREATE TABLE Persona  (
     maternita IntGEZ,
     pos_militare varchar,
     check (
-        genere = 'Uomo' and pos_militare is not null and maternita is null
+        (genere = 'Uomo' and pos_militare is not null and maternita is null)
         or
-        genere = 'Donna' and maternita is not null and pos_militare is null
+        (genere = 'Donna' and maternita is not null and pos_militare is null)
     )
 );
 
@@ -58,4 +60,15 @@ CREATE TABLE respProg (
     primary key (cf, progetto),
     foreign key (cf) references Responsabile(cf),
     foreign key (progetto) references Progetto(id)
+);
+
+INSERT INTO persona (nome, cognome, cf, nascita, tipo, genere, posMilitare) 
+VALUES (
+    'Alice', 
+    'Alici', 
+    'AAAAAA00A00A000A', 
+    '07/27/1995',
+    'Impiegato', 
+    'Donna',
+     'Civile'
 );
