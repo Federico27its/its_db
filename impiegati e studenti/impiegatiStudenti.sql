@@ -35,7 +35,10 @@ CREATE TABLE Impiegato (
     ruolo Ruolo not null,
     is_responsabile boolean not null,
     cf CodiceFiscale primary key,
-    foreign key (cf) references Persona(cf)
+    foreign key (cf) references Persona(cf),
+    check (
+        not is_responsabile = FALSE or ruolo = 'Progettista'
+    )
 );
 
 CREATE TABLE Studente (
@@ -59,16 +62,39 @@ CREATE TABLE respProg (
     progetto integer not null,
     primary key (cf, progetto),
     foreign key (cf) references Responsabile(cf),
-    foreign key (progetto) references Progetto(id)
+    foreign key (progetto) references Progetto(id),
 );
 
-INSERT INTO persona (nome, cognome, cf, nascita, tipo, genere, posMilitare) 
-VALUES (
-    'Alice', 
-    'Alici', 
-    'AAAAAA00A00A000A', 
-    '07/27/1995',
-    'Impiegato', 
-    'Donna',
-     'Civile'
-);
+INSERT INTO persona (nome, cognome, cf, nascita, tipo, genere, maternita) 
+VALUES 
+('Alice', 'Alici', 'AAAAAA00A00A000A', '07/27/1995','Impiegato', 'Donna', 3), 
+('Daniela', 'Danieli', 'DDDDDD00D00D000D', '10/27/1995', 'Impiegato', 'Donna', 7);
+
+INSERT INTO persona (nome, cognome, cf, nascita, tipo, genere, pos_militare) 
+VALUES 
+('Bruno', 'Bruni', 'BBBBBB00B00B000B', '08/27/1995', 'Impiegato', 'Uomo', 'Civile'),
+('Carlo', 'Carli', 'CCCCCC00C00C000C', '09/27/1995', 'Studente', 'Uomo', 'Tenente');
+
+INSERT INTO impiegato (stipendio, ruolo, is_responsabile, cf)
+VALUES
+(1500, 'Direttore', FALSE, 'AAAAAA00A00A000A'),
+(2000, 'Progettista', FALSE, 'BBBBBB00B00B000B'),
+(8888, 'Progettista', TRUE, 'DDDDDD00D00D000D');
+
+INSERT INTO Responsabile (cf)
+VALUES
+('DDDDDD00D00D000D');
+
+INSERT INTO studente (cf, matricola)
+VALUES
+('CCCCCC00C00C000C', 1);
+
+INSERT INTO progetto (nome, id)
+VALUES
+("Progettone", 1),
+("Progettino", 2);
+
+INSERT INTO respProg (cf, progetto)
+VALUES
+('DDDDDD00D00D000D', 1),
+('DDDDDD00D00D000D', 2);
