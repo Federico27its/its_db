@@ -33,12 +33,8 @@ CREATE TABLE Persona  (
 CREATE TABLE Impiegato (
     stipendio RealGEZ not null,
     ruolo Ruolo not null,
-    is_responsabile boolean not null,
     cf CodiceFiscale primary key,
     foreign key (cf) references Persona(cf),
-    check (
-        not is_responsabile = FALSE or ruolo = 'Progettista'
-    )
 );
 
 CREATE TABLE Studente (
@@ -75,11 +71,11 @@ VALUES
 ('Bruno', 'Bruni', 'BBBBBB00B00B000B', '08/27/1995', 'Impiegato', 'Uomo', 'Civile'),
 ('Carlo', 'Carli', 'CCCCCC00C00C000C', '09/27/1995', 'Studente', 'Uomo', 'Tenente');
 
-INSERT INTO impiegato (stipendio, ruolo, is_responsabile, cf)
+INSERT INTO impiegato (stipendio, ruolo, cf)
 VALUES
-(1500, 'Direttore', FALSE, 'AAAAAA00A00A000A'),
-(2000, 'Progettista', FALSE, 'BBBBBB00B00B000B'),
-(8888, 'Progettista', TRUE, 'DDDDDD00D00D000D');
+(1500, 'Direttore', 'AAAAAA00A00A000A'),
+(2000, 'Progettista', 'BBBBBB00B00B000B'),
+(8888, 'Progettista', 'DDDDDD00D00D000D');
 
 INSERT INTO Responsabile (cf)
 VALUES
